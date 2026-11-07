@@ -1,0 +1,65 @@
+{
+  "manifestVersion": 1,
+  "repoId": "yozora-extensions",
+  "updated": "2026-11-07T00:00:00Z",
+  "providers": [
+    {
+      "id": "hentaifox",
+      "name": "HentaiFox",
+      "category": "MANGA",
+      "description": "Doujinshi and hentai manga from HentaiFox via its public listing, gallery and image-CDN pages. Real titles, covers, tags and page images resolved from the site's own reader paths — served through Yozora's proxy with attribution. No auth and no paywall is involved (ExHentai-style gated content is not touched).",
+      "version": "1.0.0",
+      "author": "yozora-extensions",
+      "homepage": "https://hentaifox.com",
+      "capabilities": ["search", "details", "discover", "chapters", "pages", "health"],
+      "configSchema": [],
+      "mediaHosts": ["hentaifox.com", "i1.hentaifox.com", "i2.hentaifox.com", "i3.hentaifox.com", "i4.hentaifox.com", "i5.hentaifox.com"],
+      "mediaHostSuffixes": [".hentaifox.com"],
+      "resilientMedia": true,
+      "recipe": {
+        "transport": "resilient",
+        "search": {
+          "url": "https://hentaifox.com/search/?q={q}&page={page}",
+          "type": "html",
+          "blockRegex": "<div class=\"thumb\"[^>]*>[\\s\\S]*?href=\"/gallery/(?<id>\\d+)/\"[\\s\\S]*?data-src=\"(?<cover>[^\"]+)\"[\\s\\S]*?g_title\"><a[^>]*>(?<title>[^<]{1,200})</a>",
+          "templates": {
+            "externalUrl": "https://hentaifox.com/gallery/{id}/"
+          },
+          "limit": 24
+        },
+        "popular": {
+          "url": "https://hentaifox.com/",
+          "type": "html",
+          "blockRegex": "<div class=\"thumb\"[^>]*>[\\s\\S]*?href=\"/gallery/(?<id>\\d+)/\"[\\s\\S]*?data-src=\"(?<cover>[^\"]+)\"[\\s\\S]*?g_title\"><a[^>]*>(?<title>[^<]{1,200})</a>",
+          "templates": {
+            "externalUrl": "https://hentaifox.com/gallery/{id}/"
+          },
+          "limit": 24
+        },
+        "details": {
+          "url": "https://hentaifox.com/gallery/{id}/",
+          "type": "html",
+          "fields": {
+            "title": "<h1[^>]*>([^<]+)</h1>",
+            "loadId": "name=\"load_id\"[^>]*value=\"(\\d+)\"",
+            "pages": "name=\"load_pages\"[^>]*value=\"(\\d+)\"",
+            "cover": "src=\"(https://i\\d+\\.hentaifox\\.com/\\d+/\\d+/cover\\.jpg)\""
+          },
+          "templates": {
+            "externalUrl": "https://hentaifox.com/gallery/{id}/"
+          }
+        },
+        "units": {
+          "kind": "gallery",
+          "pagesFrom": {
+            "from": "cover",
+            "search": "cover.jpg",
+            "replace": "{n}.webp"
+          },
+          "countFrom": "pages",
+          "maxPages": 400
+        }
+      }
+    }
+  ]
+}
