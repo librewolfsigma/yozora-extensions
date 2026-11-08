@@ -34,10 +34,10 @@ async function getText(url: string): Promise<string> {
     headers: { "User-Agent": BROWSER_UA, Referer: SITE + "/" },
   })
   if (res.status === 403 || res.status === 503 || res.status === 429) {
-    throw new Error("nhentai: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+    throw ("nhentai: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
   }
   if (res.status >= 400) {
-    throw new Error("nhentai: upstream answered HTTP " + res.status)
+    throw ("nhentai: upstream answered HTTP " + res.status)
   }
   return res.text()
 }
@@ -166,7 +166,7 @@ class Provider {
 
   async findChapters(id: string): Promise<any[]> {
     const g = await getJson(BASE + "/galleries/" + encodeURIComponent(id))
-    if (!g || g.id == null) throw new Error("nhentai: gallery " + id + " not found")
+    if (!g || g.id == null) throw ("nhentai: gallery " + id + " not found")
     return [
       {
         id: String(g.id),
@@ -182,7 +182,7 @@ class Provider {
   async findChapterPages(chapterId: string): Promise<any[]> {
     const g = await getJson(BASE + "/galleries/" + encodeURIComponent(chapterId))
     if (!g || !g.pages || !g.pages.length) {
-      throw new Error("nhentai: gallery " + chapterId + " has no pages")
+      throw ("nhentai: gallery " + chapterId + " has no pages")
     }
     const s = await servers()
     const out: any[] = []

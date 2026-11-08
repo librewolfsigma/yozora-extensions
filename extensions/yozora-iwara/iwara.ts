@@ -36,10 +36,10 @@ async function getJson(url: string): Promise<any> {
     },
   })
   if (res.status === 403 || res.status === 503 || res.status === 429) {
-    throw new Error("iwara: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+    throw ("iwara: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
   }
   if (res.status >= 400) {
-    throw new Error("iwara: upstream answered HTTP " + res.status)
+    throw ("iwara: upstream answered HTTP " + res.status)
   }
   return JSON.parse(res.text())
 }
@@ -65,19 +65,19 @@ interface IwVideo {
 class Provider {
   async search(opts: { query: string; dub: boolean; year: number }): Promise<any[]> {
     const query = (opts && opts.query ? opts.query : "").trim()
-    if (!query) throw new Error("iwara: enter a search query")
+    if (!query) throw ("iwara: enter a search query")
     // VERIFIED (2026-11): the guest (keyless) API ignores the `search` param
     // entirely — a nonsense query returns the same default listing. Text
     // search is honestly unavailable without a platform account, so the
     // extension refuses instead of returning unrelated results.
-    throw new Error(
+    throw (
       "iwara: text search needs an Iwara account upstream (the guest API ignores it) — this provider cannot search keylessly",
     )
   }
 
   async findEpisodes(id: string): Promise<any[]> {
     const v: IwVideo = await getJson(BASE + "/video/" + encodeURIComponent(id))
-    if (!v || !v.id) throw new Error("iwara: video " + id + " not found")
+    if (!v || !v.id) throw ("iwara: video " + id + " not found")
     return [
       {
         id: v.id,
@@ -90,14 +90,14 @@ class Provider {
 
   async findEpisodeServer(episode: any, server: string): Promise<any> {
     const id = episode && episode.id ? String(episode.id) : ""
-    if (!id) throw new Error("iwara: episode has no id")
+    if (!id) throw ("iwara: episode has no id")
     const v: IwVideo = await getJson(BASE + "/video/" + encodeURIComponent(id))
-    if (!v || !v.fileUrl) throw new Error("iwara: no signed fileUrl returned for this video")
+    if (!v || !v.fileUrl) throw ("iwara: no signed fileUrl returned for this video")
 
     // fileUrl → JSON array of quality variants
     const variants = await getJson(absolute(v.fileUrl))
     if (!variants || !variants.length) {
-      throw new Error("iwara: fileUrl returned no stream variants")
+      throw ("iwara: fileUrl returned no stream variants")
     }
     let best: any = null
     for (const variant of variants) {
@@ -106,7 +106,7 @@ class Provider {
       }
     }
     const view = best && best.src ? best.src.view || best.src.download : null
-    if (!view) throw new Error("iwara: no view/download URL in stream variants")
+    if (!view) throw ("iwara: no view/download URL in stream variants")
 
     const headers: Record<string, string> = {
       "User-Agent": BROWSER_UA,

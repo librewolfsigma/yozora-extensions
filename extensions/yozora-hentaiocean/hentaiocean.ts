@@ -24,7 +24,7 @@ async function getText(url: string): Promise<string> {
     headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
   })
   if (res.status >= 400) {
-    throw new Error("hentaiocean: upstream answered HTTP " + res.status + " for " + url)
+    throw ("hentaiocean: upstream answered HTTP " + res.status + " for " + url)
   }
   return res.text()
 }
@@ -85,7 +85,7 @@ async function resolveStreamUrl(slug: string): Promise<string> {
     // mirror it exactly (vid carries spaces/brackets).
     return origin + "/video/" + encodeURIComponent(vid)
   }
-  throw new Error("hentaiocean: no direct hentaiocean.com play mirror resolved for " + slug)
+  throw ("hentaiocean: no direct hentaiocean.com play mirror resolved for " + slug)
 }
 
 async function watchTitle(slug: string): Promise<string | null> {
@@ -101,7 +101,7 @@ async function watchTitle(slug: string): Promise<string | null> {
 class Provider {
   async search(opts: { query: string; dub: boolean; year: number }): Promise<any[]> {
     const query = (opts && opts.query ? opts.query : "").trim()
-    if (!query) throw new Error("hentaiocean: enter a search query (e.g. a title or series name)")
+    if (!query) throw ("hentaiocean: enter a search query (e.g. a title or series name)")
     const slugs = await siteSearch(query)
     const out: any[] = []
     for (const slug of slugs) {
@@ -129,7 +129,7 @@ class Provider {
 
   async findEpisodeServer(episode: any, server: string): Promise<any> {
     const slug = episode && episode.id ? String(episode.id) : ""
-    if (!slug) throw new Error("hentaiocean: episode has no id")
+    if (!slug) throw ("hentaiocean: episode has no id")
     const streamUrl = await resolveStreamUrl(slug)
     return {
       server: "default",

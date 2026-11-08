@@ -25,7 +25,7 @@ const BROWSER_UA =
 async function getJson(url: string): Promise<any> {
   const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA } })
   if (res.status >= 400) {
-    throw new Error("pmvhaven: upstream answered HTTP " + res.status + " for " + url)
+    throw ("pmvhaven: upstream answered HTTP " + res.status + " for " + url)
   }
   return JSON.parse(res.text())
 }
@@ -113,10 +113,10 @@ class Provider {
 
   async findEpisodeServer(episode: any, server: string): Promise<any> {
     const id = episode && episode.id ? String(episode.id) : ""
-    if (!id) throw new Error("pmvhaven: episode has no id")
+    if (!id) throw ("pmvhaven: episode has no id")
     const v = await findVideo(id)
     if (!v || !v.videoUrl) {
-      throw new Error(
+      throw (
         "pmvhaven: video " + id + " could not be located on the keyless browse API (its detail endpoint needs a platform key)",
       )
     }

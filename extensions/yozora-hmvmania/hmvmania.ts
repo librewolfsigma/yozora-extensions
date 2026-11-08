@@ -27,7 +27,7 @@ async function getText(url: string): Promise<string> {
     headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
   })
   if (res.status >= 400) {
-    throw new Error("hmvmania: upstream answered HTTP " + res.status + " for " + url)
+    throw ("hmvmania: upstream answered HTTP " + res.status + " for " + url)
   }
   return res.text()
 }
@@ -99,10 +99,10 @@ class Provider {
 
   async findEpisodes(id: string): Promise<any[]> {
     const slug = slugFromId(id)
-    if (!slug) throw new Error("hmvmania: pass a video slug or a https://hmvmania.com/video/{slug}/ URL")
+    if (!slug) throw ("hmvmania: pass a video slug or a https://hmvmania.com/video/{slug}/ URL")
     const html = await videoHtml(slug)
     if (!html.includes("data-video-source") && !pageTitle(html)) {
-      throw new Error("hmvmania: video page for " + slug + " looked empty")
+      throw ("hmvmania: video page for " + slug + " looked empty")
     }
     return [
       {
@@ -116,10 +116,10 @@ class Provider {
 
   async findEpisodeServer(episode: any, server: string): Promise<any> {
     const slug = slugFromId(episode && episode.id ? String(episode.id) : "")
-    if (!slug) throw new Error("hmvmania: episode has no id")
+    if (!slug) throw ("hmvmania: episode has no id")
     const html = await videoHtml(slug)
     const sources = sourcesOf(html)
-    if (!sources.length) throw new Error("hmvmania: no direct MP4 found on " + slug)
+    if (!sources.length) throw ("hmvmania: no direct MP4 found on " + slug)
     const videoSources: any[] = []
     for (let i = 0; i < sources.length; i++) {
       videoSources.push({
