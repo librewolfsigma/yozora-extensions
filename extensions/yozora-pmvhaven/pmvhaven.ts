@@ -80,10 +80,21 @@ async function browse(tag: string, page: number, sort: string): Promise<PmvVideo
 }
 
 /** Bounded scan of browse pages to locate a video the memo lost. */
+// YOZORA (fork): episode ids can arrive as a bare id or a full video URL
+// (custom source entries pass their page URL through as the episode id).
+function videoIdFromAny(input: string): string {
+  const s = String(input || "")
+  const m = s.match(/([0-9a-f]{24})/i)
+  if (m) return m[1]
+  const parts = s.split("/").filter(Boolean)
+  return parts[parts.length - 1] || s
+}
+
 // YOZORA (fork): resolve a video straight from its own public page (the MP4
 // is embedded in the page's data). Deterministic and restart-proof — no
 // reliance on the per-VM browse memo. Falls back to the browse scan.
 async function findVideoByPage(id: string): Promise<PmvVideo | null> {
+  id = videoIdFromAny(id)
   try {
     const res = await fetch(BASE + "/video/" + encodeURIComponent(id), {
       headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
@@ -110,6 +121,7 @@ async function findVideoByPage(id: string): Promise<PmvVideo | null> {
 }
 
 async function findVideo(id: string): Promise<PmvVideo | null> {
+  id = videoIdFromAny(id)
   if (recent[id]) return recent[id]
   const direct = await findVideoByPage(id)
   if (direct) return direct
@@ -156,7 +168,7 @@ class Provider {
   }
 
   async findEpisodeServer(episode: any, server: string): Promise<any> {
-    const id = episode && episode.id ? String(episode.id) : ""
+    const id = episode && episode.id ? videoIdFromAny(String(episode.id)) : ""
     if (!id) throw ("pmvhaven: episode has no id")
     const v = await findVideo(id)
     if (!v || !v.videoUrl) {
