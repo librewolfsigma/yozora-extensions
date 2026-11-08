@@ -115,10 +115,15 @@ function baseManga(g: NhGallery, extra: Record<string, unknown> | null): Record<
     },
     coverImage: { extraLarge: null, large: null, medium: null, color: null },
     bannerImage: null,
-    format: tagNames(g, "category")[0] || "MANGA",
+    // YOZORA: the Go BaseManga contract only accepts the AniList MediaFormat
+    // enum ("MANGA" etc.). nhentai category tags ("manga", "doujin", …) are
+    // NOT valid enum values — passing them through made the server fail the
+    // whole gallery unmarshal ("manga is not a valid MediaFormat"), zeroing
+    // out getManga metadata. The upstream category stays visible in genres.
+    format: "MANGA",
     status: "FINISHED",
     description: title,
-    genres: tagNames(g, "tag").slice(0, 12),
+    genres: [tagNames(g, "category")[0] || "manga"].concat(tagNames(g, "tag").slice(0, 12)),
     isAdult: true,
     chapters: g.num_pages || null,
     volumes: null,
