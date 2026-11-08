@@ -1,0 +1,16 @@
+{
+  "id": "yozora-pmvhaven-cs",
+  "name": "Yozora \u00b7 PMVHaven (Browse)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/yozora-pmvhaven-cs.json",
+  "language": "typescript",
+  "type": "custom-source",
+  "description": "18+. Browse-first custom source for PMVHaven \u2014 the platform's own public keyless feed API (tags/sort/paging) with covers, uploaders and durations. Entries are played through the yozora-pmvhaven onlinestream provider on the entry page. Text search is honestly refused: /api/search is key-gated upstream.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/icon.png",
+  "website": "https://pmvhaven.com",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/README.md",
+  "notes": "18+ browse source. Feed = the platform's own public /api/videos used by its web player. No DRM, auth or paywall is touched.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/pmvhaven-cs.ts"
+}

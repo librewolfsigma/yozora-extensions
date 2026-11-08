@@ -1,8 +1,8 @@
 [
   {
     "id": "yozora-nhentai",
-    "name": "Yozora · nhentai",
-    "description": "18+. nhentai galleries via the official public JSON API v2 — search, popular, chapters and real page images from the site's own image servers. Keyless.",
+    "name": "Yozora \u00b7 nhentai",
+    "description": "18+. nhentai galleries via the official public JSON API v2 \u2014 search, popular, chapters and real page images from the site's own image servers. Keyless.",
     "author": "Yozora",
     "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/yozora-nhentai.json",
     "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/icon.png",
@@ -13,8 +13,8 @@
   },
   {
     "id": "yozora-hentaiocean",
-    "name": "Yozora · HentaiOcean",
-    "description": "18+. Hentai anime streams from HentaiOcean — the site's own search and embed player resolved to its direct hentaiocean.com MP4 mirrors. Keyless.",
+    "name": "Yozora \u00b7 HentaiOcean",
+    "description": "18+. Hentai anime streams from HentaiOcean \u2014 the site's own search and embed player resolved to its direct hentaiocean.com MP4 mirrors. Keyless.",
     "author": "Yozora",
     "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/yozora-hentaiocean.json",
     "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/icon.png",
@@ -25,7 +25,7 @@
   },
   {
     "id": "yozora-iwara",
-    "name": "Yozora · Iwara",
+    "name": "Yozora \u00b7 Iwara",
     "description": "18+. Iwara videos (HMV/AMV community) played via the platform's own signed direct files through the public guest API. No login, DRM or paywall bypassed.",
     "author": "Yozora",
     "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/yozora-iwara.json",
@@ -37,7 +37,7 @@
   },
   {
     "id": "yozora-pmvhaven",
-    "name": "Yozora · PMVHaven",
+    "name": "Yozora \u00b7 PMVHaven",
     "description": "18+. PMV/HMV community videos from PMVHaven via its public keyless browse API with direct MP4 playback from the platform's own storage.",
     "author": "Yozora",
     "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/yozora-pmvhaven.json",
@@ -49,12 +49,48 @@
   },
   {
     "id": "yozora-hmvmania",
-    "name": "Yozora · HMVmania",
-    "description": "18+. HMVmania videos — the dedicated HMV community site — played from the site's own hosted MP4s (data-video-source, quality variants included). Keyless.",
+    "name": "Yozora \u00b7 HMVmania",
+    "description": "18+. HMVmania videos \u2014 the dedicated HMV community site \u2014 played from the site's own hosted MP4s (data-video-source, quality variants included). Keyless.",
     "author": "Yozora",
     "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/yozora-hmvmania.json",
     "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/icon.png",
     "type": "onlinestream-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-hmvmania-cs",
+    "name": "Yozora \u00b7 HMVmania (Browse)",
+    "description": "18+. Browse-first custom source for HMVmania \u2014 the dedicated HMV community site's 2D videos feed (paged cards, covers, makers). Entries are played through the yozora-hmvmania onlinestream provider on the entry page. Text search is honestly refused: the site's WordPress search does not index video posts.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/yozora-hmvmania-cs.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/icon.png",
+    "type": "custom-source",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-pmvhaven-cs",
+    "name": "Yozora \u00b7 PMVHaven (Browse)",
+    "description": "18+. Browse-first custom source for PMVHaven \u2014 the platform's own public keyless feed API (tags/sort/paging) with covers, uploaders and durations. Entries are played through the yozora-pmvhaven onlinestream provider on the entry page. Text search is honestly refused: /api/search is key-gated upstream.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/yozora-pmvhaven-cs.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven-cs/icon.png",
+    "type": "custom-source",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-nhentai-cs",
+    "name": "Yozora \u00b7 nhentai (Browse)",
+    "description": "18+. Browse-first custom source for nhentai galleries via the official public JSON API v2 \u2014 paged galleries, text search, covers and tags. Keyless.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/yozora-nhentai-cs.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/icon.png",
+    "type": "custom-source",
     "language": "typescript",
     "lang": "multi",
     "website": "https://github.com/librewolfsigma/yozora"

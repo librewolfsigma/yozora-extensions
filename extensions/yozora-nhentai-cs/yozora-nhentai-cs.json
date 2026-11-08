@@ -1,0 +1,16 @@
+{
+  "id": "yozora-nhentai-cs",
+  "name": "Yozora \u00b7 nhentai (Browse)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/yozora-nhentai-cs.json",
+  "language": "typescript",
+  "type": "custom-source",
+  "description": "18+. Browse-first custom source for nhentai galleries via the official public JSON API v2 \u2014 paged galleries, text search, covers and tags. Keyless.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/icon.png",
+  "website": "https://nhentai.net",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/README.md",
+  "notes": "18+ browse source. Uses the site's own public API v2 and thumbnail servers. No DRM, auth or paywall is touched.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai-cs/nhentai-cs.ts"
+}

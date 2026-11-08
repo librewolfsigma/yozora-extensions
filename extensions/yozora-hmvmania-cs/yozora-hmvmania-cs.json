@@ -1,0 +1,16 @@
+{
+  "id": "yozora-hmvmania-cs",
+  "name": "Yozora \u00b7 HMVmania (Browse)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/yozora-hmvmania-cs.json",
+  "language": "typescript",
+  "type": "custom-source",
+  "description": "18+. Browse-first custom source for HMVmania \u2014 the dedicated HMV community site's 2D videos feed (paged cards, covers, makers). Entries are played through the yozora-hmvmania onlinestream provider on the entry page. Text search is honestly refused: the site's WordPress search does not index video posts.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/icon.png",
+  "website": "https://hmvmania.com",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/README.md",
+  "notes": "18+ browse source. Feed = the site's own public 2D videos index. No DRM, auth or paywall is touched; playback resolves the site's own hosted MP4.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania-cs/hmvmania-cs.ts"
+}
