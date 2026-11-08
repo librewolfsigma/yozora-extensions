@@ -29,17 +29,39 @@ const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 // The goja response exposes text() synchronously once the promise resolves.
+// YOZORA (fork): ids can arrive as a gallery number or the gallery URL
+// (custom source entries pass their page URL through as the manga id).
+function galleryIdFromAny(input: string): string {
+  const s = String(input || "")
+  const m = s.match(/nhentai\.net\/g\/(\d+)/)
+  if (m) return m[1]
+  const bare = s.match(/^(\d{2,8})$/)
+  if (bare) return bare[1]
+  return s
+}
+
 async function getText(url: string): Promise<string> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": BROWSER_UA, Referer: SITE + "/" },
-  })
-  if (res.status === 403 || res.status === 503 || res.status === 429) {
-    throw ("nhentai: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+  // YOZORA (fork): bound each request to 8s and retry once so one transient
+  // upstream stall cannot zero out metadata or page resolution.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: SITE + "/" },
+        timeout: 8000,
+      })
+      if (res.status === 403 || res.status === 503 || res.status === 429) {
+        throw ("nhentai: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+      }
+      if (res.status >= 400) {
+        throw ("nhentai: upstream answered HTTP " + res.status)
+      }
+      return res.text()
+    } catch (e) {
+      lastErr = e
+    }
   }
-  if (res.status >= 400) {
-    throw ("nhentai: upstream answered HTTP " + res.status)
-  }
-  return res.text()
+  throw lastErr
 }
 
 async function getJson(url: string): Promise<any> {
@@ -165,6 +187,7 @@ class Provider {
   }
 
   async findChapters(id: string): Promise<any[]> {
+    id = galleryIdFromAny(id)
     const g = await getJson(BASE + "/galleries/" + encodeURIComponent(id))
     if (!g || g.id == null) throw ("nhentai: gallery " + id + " not found")
     return [
@@ -180,6 +203,7 @@ class Provider {
   }
 
   async findChapterPages(chapterId: string): Promise<any[]> {
+    chapterId = galleryIdFromAny(chapterId)
     const g = await getJson(BASE + "/galleries/" + encodeURIComponent(chapterId))
     if (!g || !g.pages || !g.pages.length) {
       throw ("nhentai: gallery " + chapterId + " has no pages")

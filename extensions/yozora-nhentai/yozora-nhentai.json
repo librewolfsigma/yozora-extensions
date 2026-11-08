@@ -1,7 +1,7 @@
 {
   "id": "yozora-nhentai",
   "name": "Yozora · nhentai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/yozora-nhentai.json",
   "language": "typescript",
   "type": "manga-provider",
