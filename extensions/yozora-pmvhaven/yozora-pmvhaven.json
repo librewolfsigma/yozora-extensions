@@ -1,0 +1,16 @@
+{
+  "id": "yozora-pmvhaven",
+  "name": "Yozora · PMVHaven",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/yozora-pmvhaven.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "18+. PMV/HMV community videos from PMVHaven via its public keyless browse API (tags, sorting, pagination) with direct MP4 playback from the platform's own object storage. Text search needs a platform key upstream, so in-app search maps the query to a tag. No auth, DRM or paywall is bypassed.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/icon.png",
+  "website": "https://pmvhaven.com",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/README.md",
+  "notes": "18+ streaming provider. Search = browse-by-tag (first word of the query; e.g. 'pmv', 'hmv', 'cosplay'). Videos already seen while browsing play instantly; others are located by a bounded scan of the browse API.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/pmvhaven.ts"
+}

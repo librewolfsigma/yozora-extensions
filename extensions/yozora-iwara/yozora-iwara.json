@@ -1,0 +1,16 @@
+{
+  "id": "yozora-iwara",
+  "name": "Yozora · Iwara",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/yozora-iwara.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "18+. Iwara videos (HMV/AMV community platform) played via the platform's own signed direct files through the public guest API — per-video episodes with quality variants. No login, DRM or paywall is bypassed; guest scope is what Iwara serves anonymously.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/icon.png",
+  "website": "https://www.iwara.tv",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/README.md",
+  "notes": "18+ streaming provider. The guest API ignores text search upstream, so in-app search refuses honestly. Open videos via manual mapping with a https://www.iwara.tv/video/{id} URL or the bare video id.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/iwara.ts"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "yozora-nhentai",
+    "name": "Yozora · nhentai",
+    "description": "18+. nhentai galleries via the official public JSON API v2 — search, popular, chapters and real page images from the site's own image servers. Keyless.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/yozora-nhentai.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/icon.png",
+    "type": "manga-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-hentaiocean",
+    "name": "Yozora · HentaiOcean",
+    "description": "18+. Hentai anime streams from HentaiOcean — the site's own search and embed player resolved to its direct hentaiocean.com MP4 mirrors. Keyless.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/yozora-hentaiocean.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/icon.png",
+    "type": "onlinestream-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-iwara",
+    "name": "Yozora · Iwara",
+    "description": "18+. Iwara videos (HMV/AMV community) played via the platform's own signed direct files through the public guest API. No login, DRM or paywall bypassed.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/yozora-iwara.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-iwara/icon.png",
+    "type": "onlinestream-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-pmvhaven",
+    "name": "Yozora · PMVHaven",
+    "description": "18+. PMV/HMV community videos from PMVHaven via its public keyless browse API with direct MP4 playback from the platform's own storage.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/yozora-pmvhaven.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/icon.png",
+    "type": "onlinestream-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  },
+  {
+    "id": "yozora-hmvmania",
+    "name": "Yozora · HMVmania",
+    "description": "18+. HMVmania videos — the dedicated HMV community site — played from the site's own hosted MP4s (data-video-source, quality variants included). Keyless.",
+    "author": "Yozora",
+    "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/yozora-hmvmania.json",
+    "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/icon.png",
+    "type": "onlinestream-provider",
+    "language": "typescript",
+    "lang": "multi",
+    "website": "https://github.com/librewolfsigma/yozora"
+  }
+]

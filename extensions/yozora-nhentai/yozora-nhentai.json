@@ -1,0 +1,16 @@
+{
+  "id": "yozora-nhentai",
+  "name": "Yozora · nhentai",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/yozora-nhentai.json",
+  "language": "typescript",
+  "type": "manga-provider",
+  "description": "18+. nhentai galleries (doujinshi / manga / artist CG) via the site's official public JSON API v2 — search, popular, chapters and real page images from the site's own image servers. Keyless; no DRM, auth or paywall is touched.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/icon.png",
+  "website": "https://nhentai.net",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/README.md",
+  "notes": "18+ manga provider. Search = nhentai's own text search. Each gallery reads as one chapter. Pages load from nhentai's CDN (i*.nhentai.net) with a Referer header.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-nhentai/nhentai.ts"
+}

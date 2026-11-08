@@ -1,0 +1,16 @@
+{
+  "id": "yozora-hentaiocean",
+  "name": "Yozora · HentaiOcean",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/yozora-hentaiocean.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "18+. Hentai hentai anime streams from HentaiOcean — the site's own search, watch pages and embed player resolved to its direct hentaiocean.com MP4 mirrors. Keyless; third-party mirror hosts are ignored; no DRM, auth or paywall is touched.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/icon.png",
+  "website": "https://hentaiocean.com",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/README.md",
+  "notes": "18+ streaming provider. Search uses the site's own search (?s=). Each title carries one episode whose stream is resolved from the site's own embed mirrors (w*.hentaiocean.com).",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hentaiocean/hentaiocean.ts"
+}
