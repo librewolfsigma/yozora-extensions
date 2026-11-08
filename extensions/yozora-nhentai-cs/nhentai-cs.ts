@@ -37,13 +37,25 @@ type NhGallery = {
 let serversCache: { images: string[]; thumbs: string[]; at: number } | null = null
 
 async function getJson(url: string): Promise<Record<string, unknown>> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": BROWSER_UA, Referer: "https://nhentai.net/" },
-  })
-  if (res.status >= 400) {
-    throw ("nhentai-cs: upstream answered HTTP " + res.status + " for " + url)
+  // YOZORA: bound each request to 8s and retry once. Without this, one
+  // transient upstream blip (rate-limit response after a listing fetch,
+  // one-shot 5xx) zeroed out gallery metadata and chapter resolution.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: "https://nhentai.net/" },
+        timeout: 8000,
+      })
+      if (res.status >= 400) {
+        throw ("nhentai-cs: upstream answered HTTP " + res.status + " for " + url)
+      }
+      return res.json()
+    } catch (e) {
+      lastErr = e
+    }
   }
-  return res.json()
+  throw lastErr
 }
 
 async function servers(): Promise<{ images: string[]; thumbs: string[] }> {
