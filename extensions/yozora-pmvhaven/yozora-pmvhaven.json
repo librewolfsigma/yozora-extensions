@@ -1,7 +1,7 @@
 {
   "id": "yozora-pmvhaven",
   "name": "Yozora · PMVHaven",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-pmvhaven/yozora-pmvhaven.json",
   "language": "typescript",
   "type": "onlinestream-provider",

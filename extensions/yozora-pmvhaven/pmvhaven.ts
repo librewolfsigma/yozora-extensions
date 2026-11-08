@@ -23,11 +23,24 @@ const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 async function getJson(url: string): Promise<any> {
-  const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA } })
-  if (res.status >= 400) {
-    throw ("pmvhaven: upstream answered HTTP " + res.status + " for " + url)
+  // YOZORA (fork): bound each request to 8s and retry once so one transient
+  // upstream stall cannot zero out metadata or streaming resolution.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
+        timeout: 8000,
+      })
+      if (res.status >= 400) {
+        throw ("pmvhaven: upstream answered HTTP " + res.status + " for " + url)
+      }
+      return JSON.parse(res.text())
+    } catch (e) {
+      lastErr = e
+    }
   }
-  return JSON.parse(res.text())
+  throw lastErr
 }
 
 interface PmvVideo {
@@ -67,8 +80,39 @@ async function browse(tag: string, page: number, sort: string): Promise<PmvVideo
 }
 
 /** Bounded scan of browse pages to locate a video the memo lost. */
+// YOZORA (fork): resolve a video straight from its own public page (the MP4
+// is embedded in the page's data). Deterministic and restart-proof — no
+// reliance on the per-VM browse memo. Falls back to the browse scan.
+async function findVideoByPage(id: string): Promise<PmvVideo | null> {
+  try {
+    const res = await fetch(BASE + "/video/" + encodeURIComponent(id), {
+      headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
+      timeout: 8000,
+    })
+    if (res.status >= 400) return null
+    const html = await res.text()
+    const unescaped = html.split("\\u002F").join("/")
+    const m =
+      unescaped.match(/https:\/\/[a-z0-9.-]*cloud\.ovh\.net\/videos\/[^"'\\\s]+\.mp4/i) ||
+      unescaped.match(/https:\/\/[^"'\\\s]*\/(?:videos|media)\/[^"'\\\s]+\.mp4/i)
+    if (!m) return null
+    const titleM = unescaped.match(/<meta property="og:title" content="([^"]+)"/)
+    const v: PmvVideo = {
+      _id: id,
+      title: titleM ? titleM[1] : id,
+      videoUrl: m[0],
+    }
+    remember([v])
+    return v
+  } catch (e) {
+    return null
+  }
+}
+
 async function findVideo(id: string): Promise<PmvVideo | null> {
   if (recent[id]) return recent[id]
+  const direct = await findVideoByPage(id)
+  if (direct) return direct
   for (const tag of ["pmv", "hmv"]) {
     for (let p = 1; p <= 3; p++) {
       const vs = await browse(tag, p, "views").catch(() => [])

@@ -23,13 +23,24 @@ const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 async function getText(url: string): Promise<string> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
-  })
-  if (res.status >= 400) {
-    throw ("hmvmania: upstream answered HTTP " + res.status + " for " + url)
+  // YOZORA (fork): bound each request to 8s and retry once so one transient
+  // upstream stall cannot zero out metadata or streaming resolution.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
+        timeout: 8000,
+      })
+      if (res.status >= 400) {
+        throw ("hmvmania: upstream answered HTTP " + res.status + " for " + url)
+      }
+      return res.text()
+    } catch (e) {
+      lastErr = e
+    }
   }
-  return res.text()
+  throw lastErr
 }
 
 function match1(s: string, re: RegExp): string | null {

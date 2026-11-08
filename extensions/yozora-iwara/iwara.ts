@@ -27,21 +27,32 @@ const BROWSER_UA =
 // Iwara's API/CDN requires a browser-like UA plus Referer/Origin — plain
 // server UAs get Cloudflare 403 (verified in Yozora's adapter).
 async function getJson(url: string): Promise<any> {
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": BROWSER_UA,
-      Referer: SITE + "/",
-      Origin: SITE,
-      Accept: "application/json",
-    },
-  })
-  if (res.status === 403 || res.status === 503 || res.status === 429) {
-    throw ("iwara: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+  // YOZORA (fork): bound each request to 8s and retry once so one transient
+  // upstream stall cannot zero out metadata or streaming resolution.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          "User-Agent": BROWSER_UA,
+          Referer: SITE + "/",
+          Origin: SITE,
+          Accept: "application/json",
+        },
+        timeout: 8000,
+      })
+      if (res.status === 403 || res.status === 503 || res.status === 429) {
+        throw ("iwara: upstream answered HTTP " + res.status + " (edge challenge) — try again shortly")
+      }
+      if (res.status >= 400) {
+        throw ("iwara: upstream answered HTTP " + res.status)
+      }
+      return JSON.parse(res.text())
+    } catch (e) {
+      lastErr = e
+    }
   }
-  if (res.status >= 400) {
-    throw ("iwara: upstream answered HTTP " + res.status)
-  }
-  return JSON.parse(res.text())
+  throw lastErr
 }
 
 function numericQuality(name: string): number {
