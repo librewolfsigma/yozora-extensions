@@ -50,13 +50,24 @@ function remember(v: PmvVideo): number {
 }
 
 async function getJson(url: string): Promise<Record<string, unknown>> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
-  })
-  if (res.status >= 400) {
-    throw ("pmvhaven-cs: upstream answered HTTP " + res.status + " for " + url)
+  // YOZORA (fork): bound each request to 8s and retry once. The 35s default
+  // used to turn a single transient stall into a full metadata failure.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
+        timeout: 8000,
+      })
+      if (res.status >= 400) {
+        throw ("pmvhaven-cs: upstream answered HTTP " + res.status + " for " + url)
+      }
+      return res.json()
+    } catch (e) {
+      lastErr = e
+    }
   }
-  return res.json()
+  throw lastErr
 }
 
 function durationSec(v: PmvVideo): number | null {
@@ -132,17 +143,25 @@ async function fetchFeed(tag: string, sort: string, page: number, perPage: numbe
   return videos
 }
 
-/** Re-list page 1..3 to rebuild the registry after a server restart. */
-async function healRegistry(): Promise<void> {
+/** Re-list page 1..3 to rebuild the registry after a server restart.
+ *  YOZORA (fork): resilient per-page and stops early once the wanted id
+ *  is found, instead of aborting the whole heal on one failure. */
+async function healRegistry(targetId?: number): Promise<boolean> {
+  let found = false
   for (let p = 1; p <= 3; p++) {
     try {
       const videos = await fetchFeed("pmv", "views", p, 50)
-      for (let i = 0; i < videos.length; i++) remember(videos[i])
-      if (videos.length < 10) break
+      for (let i = 0; i < videos.length; i++) {
+        const id = remember(videos[i])
+        if (targetId !== undefined && id === targetId) found = true
+      }
+      if (found) return true
+      if (videos.length < 10) return found
     } catch (e) {
-      return
+      continue
     }
   }
+  return found
 }
 
 class Provider {
@@ -171,7 +190,7 @@ class Provider {
     for (let i = 0; i < ids.length; i++) {
       let v = videoRegistry[ids[i]]
       if (!v) {
-        await healRegistry()
+        await healRegistry(ids[i])
         v = videoRegistry[ids[i]]
       }
       if (!v) continue

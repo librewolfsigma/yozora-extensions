@@ -40,13 +40,24 @@ function remember(slug: string): number {
 }
 
 async function getText(url: string): Promise<string> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
-  })
-  if (res.status >= 400) {
-    throw ("hmvmania-cs: upstream answered HTTP " + res.status + " for " + url)
+  // YOZORA (fork): bound each request to 8s and retry once. The 35s default
+  // used to turn a single transient stall into a full metadata failure.
+  let lastErr: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": BROWSER_UA, Referer: BASE + "/" },
+        timeout: 8000,
+      })
+      if (res.status >= 400) {
+        throw ("hmvmania-cs: upstream answered HTTP " + res.status + " for " + url)
+      }
+      return res.text()
+    } catch (e) {
+      lastErr = e
+    }
   }
-  return res.text()
+  throw lastErr
 }
 
 function match1(s: string, re: RegExp): string | null {
@@ -158,19 +169,27 @@ async function fetchDetail(slug: string): Promise<Card> {
   }
 }
 
-/** Fetch the listing pages once to rebuild the id registry after a restart. */
-async function healRegistry(): Promise<void> {
+/** Fetch the listing pages to rebuild the id registry after a restart.
+ *  YOZORA (fork): resilient per-page (one slow page no longer aborts the
+ *  whole heal) and stops early once the wanted id is found. */
+async function healRegistry(targetId?: number): Promise<boolean> {
+  let found = false
   for (let p = 1; p <= 3; p++) {
     try {
       const url = p <= 1 ? BASE + "/2d-videos/" : BASE + "/2d-videos/page/" + p + "/"
       const html = await getText(url)
       const cards = parseCards(html)
-      for (let i = 0; i < cards.length; i++) remember(cards[i].slug)
-      if (cards.length < 10) break
+      for (let i = 0; i < cards.length; i++) {
+        const id = remember(cards[i].slug)
+        if (targetId !== undefined && id === targetId) found = true
+      }
+      if (found) return true
+      if (cards.length < 10) return found
     } catch (e) {
-      return
+      continue
     }
   }
+  return found
 }
 
 class Provider {
@@ -203,7 +222,7 @@ class Provider {
     for (let i = 0; i < ids.length; i++) {
       let slug = idRegistry[ids[i]]
       if (!slug) {
-        await healRegistry()
+        await healRegistry(ids[i])
         slug = idRegistry[ids[i]]
       }
       if (!slug) continue
