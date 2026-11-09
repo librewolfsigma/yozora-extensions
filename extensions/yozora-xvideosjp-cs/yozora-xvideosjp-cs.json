@@ -1,7 +1,7 @@
 {
   "id": "yozora-xvideosjp-cs",
   "name": "Yozora \u00b7 XVideos JP (Browse)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/yozora-xvideosjp-cs.json",
   "language": "typescript",
   "type": "custom-source",
