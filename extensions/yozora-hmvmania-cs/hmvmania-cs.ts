@@ -200,7 +200,7 @@ class Provider {
   async listAnime(search: string, page: number, perPage: number): Promise<Record<string, unknown>> {
     if (search && search.trim().length > 0) {
       throw (
-        "HMVmania's site search does not cover video posts upstream — browse the 2D videos feed instead (honest refusal, nothing faked)"
+        "hmvmania-cs: no working upstream search — verified 2026-11: the WP search (?s=) and tag archives (/tag/<slug>/, ?tag=) render no video-item-card listing, so free text and tag:<slug> are honestly refused. Supported syntax: none — empty search browses the 2D videos feed (paginate via the page number)"
       )
     }
     const p = Math.max(1, page || 1)

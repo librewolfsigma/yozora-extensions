@@ -181,6 +181,27 @@ function baseAnime(card: Card, extra: Record<string, unknown> | null): Record<st
 }
 
 /** Fetch the video page for real metadata (title/thumb/description). */
+/** Prefix parser (iwara-cs style). xvideos has no real tag param, so
+ *  tag:<t> is honestly mapped to keyword search ?k=<t>; sort: is dropped
+ *  (not trivially mappable); other words stay as plain keywords. */
+function parseQuery(search: string): { keywords: string[]; sawTag: boolean } {
+  const keywords: string[] = []
+  let sawTag = false
+  const parts = (search || "").trim().split(/\s+/)
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i]
+    if (part.indexOf("tag:") === 0 && part.length > 4) {
+      keywords.push(part.slice(4))
+      sawTag = true
+    } else if (part.indexOf("sort:") === 0 && part.length > 5) {
+      continue
+    } else {
+      keywords.push(part)
+    }
+  }
+  return { keywords: keywords, sawTag: sawTag }
+}
+
 async function fetchDetail(url: string): Promise<Card> {
   const html = await getText(url)
   const titleMatch = match1(html, /setVideoTitle\('([^']*)'\)/)
@@ -221,11 +242,12 @@ class Provider {
   async listAnime(search: string, page: number, perPage: number): Promise<Record<string, unknown>> {
     void perPage
     const p = Math.max(1, page || 1)
-    const q = (search || "").trim()
+    const parsed = parseQuery(search)
+    const q = parsed.keywords.join(" ").trim()
     const html = await getText(q ? searchUrl(q, p) : feedUrl(p))
     const cards = parseCards(html)
     if (cards.length === 0) {
-      throw ("xvideos-cs: page " + p + (q ? " for search '" + q + "'" : "") + " contained no video cards")
+      throw ("xvideos-cs: page " + p + (q ? " for search '" + q + "'" : "") + " contained no video cards (note: tag:<t> maps to keyword search — xvideos has no real tag param)")
     }
     const media: Record<string, unknown>[] = []
     for (let i = 0; i < cards.length; i++) media.push(baseAnime(cards[i], null))

@@ -127,6 +127,31 @@ function baseAnime(v: PmvVideo, extra: Record<string, unknown> | null): Record<s
   return media
 }
 
+/** iwara-cs-style prefix parser: "tag:a tag:b sort:trending".
+ *  Verified 2026-11: /api/videos honors `tags` (anime/porn/cos return
+ *  distinct sets, unknown tags return empty) and accepts a comma-separated
+ *  multi-tag list; sort accepts trending/date/newest/likes/views. */
+function parseQuery(search: string): { tags: string[]; sort: string } {
+  const tags: string[] = []
+  let sort = ""
+  const parts = (search || "").trim().split(/\s+/)
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i]
+    if (part.indexOf("tag:") === 0 && part.length > 4) {
+      const bits = part.slice(4).split(",")
+      for (let b = 0; b < bits.length; b++) {
+        const t = bits[b].trim()
+        if (t) tags.push(t)
+      }
+    } else if (part.indexOf("sort:") === 0 && part.length > 5) {
+      const s = part.slice(5)
+      if (["trending", "date", "newest", "likes", "views"].indexOf(s) >= 0) sort = s
+    }
+    // unknown prefixes are ignored (free text is not supported upstream)
+  }
+  return { tags: tags, sort: sort }
+}
+
 async function fetchFeed(tag: string, sort: string, page: number, perPage: number): Promise<PmvVideo[]> {
   const url =
     BASE +
@@ -170,15 +195,18 @@ class Provider {
   }
 
   async listAnime(search: string, page: number, perPage: number): Promise<Record<string, unknown>> {
-    if (search && search.trim().length > 0) {
+    const parsed = parseQuery(search)
+    const query = (search || "").trim()
+    if (!parsed.tags.length && query.length > 0) {
       throw (
-        "PMVHaven text search is key-gated upstream (/api/search 401) — browse the feeds instead (honest refusal, nothing faked)"
+        "PMVHaven text search is key-gated upstream (/api/search 401) — use tag:pmv, tag:anime, tag:porn, tag:hmv, tag:a,tag:b (multi), or sort:trending|date|newest|likes; empty search browses the pmv feed (honest refusal, nothing faked)"
       )
     }
     const p = Math.max(1, page || 1)
-    const videos = await fetchFeed("pmv", "views", p, perPage)
+    // No tag: prefix keeps the historic default feed (tags=pmv).
+    const videos = await fetchFeed(parsed.tags.length ? parsed.tags.join(",") : "pmv", parsed.sort || "views", p, perPage)
     if (videos.length === 0) {
-      throw ("pmvhaven-cs: feed page " + p + " was empty")
+      throw ("pmvhaven-cs: feed page " + p + " was empty" + (parsed.tags.length ? " for tag(s) '" + parsed.tags.join(",") + "'" : ""))
     }
     const media: Record<string, unknown>[] = []
     for (let i = 0; i < videos.length; i++) media.push(baseAnime(videos[i], null))
