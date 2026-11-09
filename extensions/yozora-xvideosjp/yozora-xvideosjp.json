@@ -1,0 +1,16 @@
+{
+  "id": "yozora-xvideosjp",
+  "name": "Yozora · XVideos JP (AV)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/yozora-xvideosjp.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "18+. XVideos Japanese vertical (lang/jpn) — the AV/JAV slice. Real server-side search scoped to Japanese (JAV codes work, e.g. SIRO-5758) and direct playback from the site's own CDN MP4/HLS. Keyless; nothing re-hosted, no DRM touched.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/icon.png",
+  "website": "https://www.xvideos.com/lang/jpn",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/README.md",
+  "notes": "18+ streaming provider scoped to xvideos' Japanese-language section. Search accepts JAV codes and title terms.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/xvideosjp.ts"
+}

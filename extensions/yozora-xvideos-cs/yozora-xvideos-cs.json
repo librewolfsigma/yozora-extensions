@@ -1,0 +1,16 @@
+{
+  "id": "yozora-xvideos-cs",
+  "name": "Yozora · XVideos (Browse)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/yozora-xvideos-cs.json",
+  "language": "typescript",
+  "type": "custom-source",
+  "description": "18+. Browse-first custom source for XVideos — the general porn tube's feed (paged cards, covers, real titles) plus real search. Entries play through the yozora-xvideos onlinestream provider.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/icon.png",
+  "website": "https://www.xvideos.com",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/README.md",
+  "notes": "18+ browse source. Feed = xvideos' public index; search = the site's own server-side search. No DRM, auth or paywall touched.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/xvideos-cs.ts"
+}

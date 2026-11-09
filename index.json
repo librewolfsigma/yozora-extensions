@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "repoId": "yozora-extensions",
-  "updated": "2026-11-07T00:00:00Z",
+  "updated": "2026-11-09T00:00:00Z",
   "providers": [
     {
       "id": "hentaifox",
@@ -11,10 +11,26 @@
       "version": "1.0.0",
       "author": "yozora-extensions",
       "homepage": "https://hentaifox.com",
-      "capabilities": ["search", "details", "discover", "chapters", "pages", "health"],
+      "capabilities": [
+        "search",
+        "details",
+        "discover",
+        "chapters",
+        "pages",
+        "health"
+      ],
       "configSchema": [],
-      "mediaHosts": ["hentaifox.com", "i1.hentaifox.com", "i2.hentaifox.com", "i3.hentaifox.com", "i4.hentaifox.com", "i5.hentaifox.com"],
-      "mediaHostSuffixes": [".hentaifox.com"],
+      "mediaHosts": [
+        "hentaifox.com",
+        "i1.hentaifox.com",
+        "i2.hentaifox.com",
+        "i3.hentaifox.com",
+        "i4.hentaifox.com",
+        "i5.hentaifox.com"
+      ],
+      "mediaHostSuffixes": [
+        ".hentaifox.com"
+      ],
       "resilientMedia": true,
       "recipe": {
         "transport": "resilient",
@@ -60,6 +76,54 @@
           "maxPages": 400
         }
       }
+    },
+    {
+      "id": "yozora-xvideos",
+      "name": "Yozora · XVideos",
+      "description": "18+. XVideos — the largest general porn tube (the CORN slice) — real server-side search and direct playback from the site's own CDN MP4/HLS. Keyless.",
+      "author": "Yozora",
+      "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos/yozora-xvideos.json",
+      "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos/icon.png",
+      "type": "onlinestream-provider",
+      "language": "typescript",
+      "lang": "multi",
+      "website": "https://github.com/librewolfsigma/yozora"
+    },
+    {
+      "id": "yozora-xvideosjp",
+      "name": "Yozora · XVideos JP (AV)",
+      "description": "18+. XVideos Japanese vertical (lang/jpn) — the AV/JAV slice — search scoped to Japanese (JAV codes work) and direct playback from the site's own CDN MP4/HLS. Keyless.",
+      "author": "Yozora",
+      "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/yozora-xvideosjp.json",
+      "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp/icon.png",
+      "type": "onlinestream-provider",
+      "language": "typescript",
+      "lang": "multi",
+      "website": "https://github.com/librewolfsigma/yozora"
+    },
+    {
+      "id": "yozora-xvideos-cs",
+      "name": "Yozora · XVideos (Browse)",
+      "description": "18+. Browse-first custom source for XVideos — feed + real search, paged cards with covers and titles. Entries play through the yozora-xvideos provider.",
+      "author": "Yozora",
+      "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/yozora-xvideos-cs.json",
+      "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideos-cs/icon.png",
+      "type": "custom-source",
+      "language": "typescript",
+      "lang": "multi",
+      "website": "https://github.com/librewolfsigma/yozora"
+    },
+    {
+      "id": "yozora-xvideosjp-cs",
+      "name": "Yozora · XVideos JP (Browse)",
+      "description": "18+. Browse-first custom source for the XVideos Japanese vertical (AV/JAV) — paged feed plus scoped search. Entries play through the yozora-xvideosjp provider.",
+      "author": "Yozora",
+      "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/yozora-xvideosjp-cs.json",
+      "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/icon.png",
+      "type": "custom-source",
+      "language": "typescript",
+      "lang": "multi",
+      "website": "https://github.com/librewolfsigma/yozora"
     }
   ]
 }

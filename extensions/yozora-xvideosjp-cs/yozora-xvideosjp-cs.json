@@ -1,0 +1,16 @@
+{
+  "id": "yozora-xvideosjp-cs",
+  "name": "Yozora · XVideos JP (Browse)",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/yozora-xvideosjp-cs.json",
+  "language": "typescript",
+  "type": "custom-source",
+  "description": "18+. Browse-first custom source for the XVideos Japanese vertical (AV/JAV slice) — paged feed, covers, real titles, plus search scoped to Japanese. Entries play through the yozora-xvideosjp onlinestream provider.",
+  "author": "Yozora",
+  "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/icon.png",
+  "website": "https://www.xvideos.com/lang/jpn",
+  "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/README.md",
+  "notes": "18+ browse source scoped to xvideos' Japanese-language section. No DRM, auth or paywall touched.",
+  "lang": "multi",
+  "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-xvideosjp-cs/xvideosjp-cs.ts"
+}
