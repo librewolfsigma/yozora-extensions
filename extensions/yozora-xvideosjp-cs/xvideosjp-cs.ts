@@ -159,8 +159,6 @@ function parseQuery(search: string): { keywords: string[]; sawTag: boolean } {
   return { keywords: keywords, sawTag: sawTag }
 }
 
-async function fetchDetail
-
 function baseAnime(card: Card, extra: Record<string, unknown> | null): Record<string, unknown> {
   const id = remember(card.url)
   const media: Record<string, unknown> = {
