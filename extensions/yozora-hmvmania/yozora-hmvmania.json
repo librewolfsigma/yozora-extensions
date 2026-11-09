@@ -1,7 +1,7 @@
 {
   "id": "yozora-hmvmania",
   "name": "Yozora · HMVmania",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifestURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/yozora-hmvmania.json",
   "language": "typescript",
   "type": "onlinestream-provider",
@@ -10,7 +10,7 @@
   "icon": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/icon.png",
   "website": "https://hmvmania.com",
   "readme": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/README.md",
-  "notes": "18+ streaming provider. The site's WordPress search does not index video posts, so in-app search returns nothing honestly. Open videos via manual mapping with a https://hmvmania.com/video/{slug}/ URL or the bare slug.",
+  "notes": "18+ streaming provider. The site's WordPress search does not index video posts, so in-app search refuses honestly with the reason. Browse the Discover 18+ feed or map a video by URL (https://hmvmania.com/video/{slug}/).",
   "lang": "multi",
   "payloadURI": "https://raw.githubusercontent.com/librewolfsigma/yozora-extensions/main/extensions/yozora-hmvmania/hmvmania.ts"
 }

@@ -103,9 +103,13 @@ function sourcesOf(html: string): string[] {
 class Provider {
   async search(opts: { query: string; dub: boolean; year: number }): Promise<any[]> {
     // VERIFIED: HMVmania's WordPress search does not cover video posts —
-    // returning an empty list mirrors upstream truth (no unrelated results).
+    // throwing the honest reason beats a silent empty list (which reads as
+    // "broken" in the manual-search UI). Browse the Discover 18+ feed or
+    // paste a https://hmvmania.com/video/{slug}/ URL instead.
     void opts
-    return []
+    throw (
+      "HMVmania's site search does not cover video posts upstream — browse the feed in Discover 18+, or map a video by URL (https://hmvmania.com/video/{slug}/). Honest refusal, nothing faked."
+    )
   }
 
   async findEpisodes(id: string): Promise<any[]> {
